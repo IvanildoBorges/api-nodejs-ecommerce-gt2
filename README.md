@@ -1,49 +1,55 @@
-# Projeto Backend Node.js + Express + PostgreSQL
+# Ecommerce GT2
 
-Este é um projeto backend desenvolvido em **Node.js** com **Express.js** e **PostgreSQL**, utilizando **Sequelize** como ORM. O objetivo é criar uma API RESTful segura, testada e modular, com autenticação via **JWT** e suporte completo a operações CRUD.
+> ``Api`` para gerenciamento de ``ecommerce`` com suporte a operações **CRUD**, seguindo a arquitetura **RESTful** e padrão **MVC**.
+
+---
+
+## Visão geral
+
+Projeto backend desenvolvido em ``Node.js`` com ``Express.js`` e ``PostgreSQL``, utilizando ``Sequelize`` como ORM. *O **objetivo** é criar uma **API RESTful segura, testada e modular**, com autenticação via ``JWT`` e suporte completo a operações CRUD.*
 
 ---
 
 ## Tecnologias Utilizadas
 
-- **Node.js** – ambiente de execução JavaScript no servidor
-- **Express.js** – framework para criação de rotas e middlewares
-- **Dotenv** – gerenciamento seguro de variáveis de ambiente
-- **Nodemon** – reinício automático do servidor durante o desenvolvimento
-- **PostgreSQL** – banco de dados relacional
-- **Sequelize** – ORM para abstração e manipulação do banco
-- **JWT** – autenticação segura por token
-- **JEST** – framework de testes unitários
+- ``Node.js``     – *ambiente de execução JavaScript no servidor*
+- ``Express.js``  – *framework para criação de rotas e middlewares*
+- ``Dotenv``      – *gerenciamento seguro de variáveis de ambiente*
+- ``Nodemon``     – *reinício automático do servidor durante o desenvolvimento*
+- ``PostgreSQL``  – *banco de dados relacional*
+- ``Sequelize``   – *ORM para abstração e manipulação do banco*
+- ``JWT``         – *autenticação segura por token*
+- ``JEST``        – *framework de testes unitários*
 
 ---
 
 ## Como rodar localmente
 
-1. Clone o projeto
+**1. Clone o projeto**
 ```bash
 git clone https://github.com/IvanildoBorges/api-nodejs-ecommerce-gt2.git
 cd api-nodejs-ecommerce-gt2
 ```
 
-2. Instale as dependências
+**2. Instale as dependências**
 ```bash
 npm install
 ```
 
-3. Crie e configure o arquivo .env
+**3. Crie e configure o arquivo .env**
 ```env
-DB_HOST=localhost
-PORT=5433
-USERNAME=postgres
-PASSWORD=postgres
-DATABASE='ecommerce-gt2'
-JWT_SECRET=Jf8#e2V!s7B$kLmT9z@CwXq&bR4hPnY3gKdVv$e6tZp!Uy#rA
+DB_HOST=nome_do_seu_host            #geralmente localhost
+PORT=sua_porta_do_banco_de_dados    #geralmente 5432
+USERNAME=nome_do_usuario            #geralmente postgres       
+PASSWORD=sua_senha                  #geralmente postgres
+DATABASE=ecommerce-gt2
+JWT_SECRET=sua_chave_secreta        #32 caracters com numeros, letras e simbolos
 JWT_EXPIRATION=1d
-SALT_ROUNDS=10
+SALT_ROUNDS=100
 NODE_ENV=dev
 ```
 
-4. Inicie o servidor
+**4. Inicie o servidor**
 ```bash
 npm run dev
 ```
@@ -134,7 +140,7 @@ api-nodejs-ecommerce-gt2/
 
 ## Testes
 
-- Testes escritos com **Jest**
+- Testes escritos com ``Jest``
 - Para executar os testes:
 ```bash
 npm test
