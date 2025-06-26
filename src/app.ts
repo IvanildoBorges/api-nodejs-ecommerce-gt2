@@ -2,6 +2,7 @@ import cors from 'cors';
 import dotenv from "dotenv";
 import express from 'express';
 import helmet from 'helmet';
+import syncDatabase from './config/syncDatabase';
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import logsMorgan from "./middlewares/logs.middleware";
 import rateLimiter from './middlewares/rateLimiter.middleware';
@@ -30,6 +31,7 @@ app.use(                                            // Configuração de CORS
         credentials: false
     })
 );
+syncDatabase(); // inicia o banco de dados
 
 // Rotas
 app.use("/", routes);

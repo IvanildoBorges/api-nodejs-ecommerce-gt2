@@ -36,12 +36,12 @@ npm install
 
 **3. Crie e configure o arquivo .env**
 ```env
-DB_HOST=nome_do_seu_host            #geralmente localhost
-PORT=sua_porta_do_banco_de_dados    #geralmente 5432
-USERNAME=nome_do_usuario            #geralmente postgres       
-PASSWORD=sua_senha                  #geralmente postgres
-DATABASE=ecommerce-gt2
-JWT_SECRET=sua_chave_secreta        #32 caracters com numeros, letras e simbolos
+DB_HOST=nome_do_seu_host                #geralmente localhost
+DB_PORT=sua_porta_do_banco_de_dados     #geralmente 5432
+DB_USER=nome_do_usuario                 #geralmente postgres       
+DB_PASSWORD=sua_senha                   #geralmente postgres
+DB_NAME=ecommerce-gt2
+JWT_SECRET=sua_chave_secreta            #32 caracters com numeros, letras e simbolos
 JWT_EXPIRATION=1d
 SALT_ROUNDS=100
 NODE_ENV=dev

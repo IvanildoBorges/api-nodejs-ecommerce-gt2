@@ -1,10 +1,10 @@
 import { Router } from "express";
+import homeRoutes from "./home.routes";
+import usersRoutes from "./usuario.routes";
 
 const router = Router();
 
-// Rota de boas vindas
-router.use("/", (req, res) => {
-    res.send('Hello World! Welcome to Ecommerce GT2 API!')
-});
+router.use("/", homeRoutes); // Rota de boas vindas
+router.use("/users", usersRoutes);
 
 export default router;

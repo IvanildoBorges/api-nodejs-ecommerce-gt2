@@ -6,11 +6,11 @@ type ExpiresInType = SignOptions["expiresIn"];
 
 const envSchema = z.object({
     NODE_ENV: z.enum(["dev", "production", "test"]).default("dev"),
-    PORT: z.string().regex(/^\d+$/).default("5433"),
+    DB_PORT: z.string().regex(/^\d+$/).default("5433"),
     DB_HOST: z.string(),
-    USERNAME: z.string(),
-    PASSWORD: z.string(),
-    DATABASE: z.string(),
+    DB_USER: z.string(),
+    DB_PASSWORD: z.string(),
+    DB_NAME: z.string(),
     JWT_SECRET: z.string().min(32, "JWT_SECRET deve ter pelo menos 32 caracteres"),
     JWT_EXPIRATION: z.custom<ExpiresInType>(), // Agora tem exatamente os tipos aceitos
     SALT_ROUNDS: z.string().regex(/^\d+$/, "O salto deve ser um número válido").transform(Number)
