@@ -2,9 +2,7 @@
 
 > ``Api`` para gerenciamento de ``ecommerce`` com suporte a operações **CRUD**, seguindo a arquitetura **RESTful** e padrão **MVC**.
 
----
-
-## Visão geral
+### Visão geral
 
 Projeto backend desenvolvido em ``Node.js`` com ``Express.js`` e ``PostgreSQL``, utilizando ``Sequelize`` como ORM. *O **objetivo** é criar uma **API RESTful segura, testada e modular**, com autenticação via ``JWT`` e suporte completo a operações CRUD.*
 
