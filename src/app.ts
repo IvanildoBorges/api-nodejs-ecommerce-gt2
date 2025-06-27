@@ -1,5 +1,4 @@
 import cors from 'cors';
-import dotenv from "dotenv";
 import express from 'express';
 import helmet from 'helmet';
 import syncDatabase from './config/syncDatabase';
@@ -8,9 +7,6 @@ import logsMorgan from "./middlewares/logs.middleware";
 import rateLimiter from './middlewares/rateLimiter.middleware';
 import sanitizeMiddleware from './middlewares/sanitize.middleware';
 import routes from './routes/index.routes';
-
-// Carregar variáveis de ambiente
-dotenv.config();
 
 const app = express();
 
@@ -34,7 +30,7 @@ app.use(                                            // Configuração de CORS
 syncDatabase(); // inicia o banco de dados
 
 // Rotas
-app.use("/", routes);
+app.use("/v1", routes);
 
 // Middleware de tratamento de erros
 app.use(errorHandler);

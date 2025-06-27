@@ -1,9 +1,5 @@
-import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
 import { env } from "./env";
-
-// Carregar variáveis de ambiente
-dotenv.config();
 
 const connection = new Sequelize(
     env.DB_NAME,
