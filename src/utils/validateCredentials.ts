@@ -1,5 +1,5 @@
-import { Credencial } from "../models/credencial.model";
 import credencialSchema from "../schemas/credencial.schema";
+import { Credencial } from "../types/credencial.types";
 
 // Função para validar os dados de uma credencial com o esquema CredencialSchema
 export const validarCredencial = (credencial: Credencial): void => {

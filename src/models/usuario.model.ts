@@ -1,7 +1,21 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import connection from "../config/database";
+import { UsuarioCompleto } from "../types/user.types";
 
-class UserModel extends Model { }
+// Para criação, o ID pode ser opcional
+interface UserCreationAttributes extends Optional<UsuarioCompleto, "id"> { }
+
+class UserModel extends Model<UsuarioCompleto, UserCreationAttributes> implements UsuarioCompleto {
+    public id!: number;
+    public firstname!: string;
+    public surname!: string;
+    public email!: string;
+    public password!: string;
+
+    // timestamps automáticos (se usados)
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
+}
 
 UserModel.init(
     {
@@ -30,6 +44,7 @@ UserModel.init(
     {
         sequelize: connection,
         tableName: "user",
+        timestamps: true,
     }
 );
 

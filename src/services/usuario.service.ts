@@ -1,4 +1,5 @@
 import UserModel from "../models/usuario.model";
+import { UsuarioDTO } from "../types/user.types";
 import { hashearSenha } from "../utils/criptografaSenha";
 import { validarUsuario } from "../utils/validateUser";
 
@@ -14,7 +15,13 @@ export const getUsuarioPorId = async (id: string) => {
     });
 };
 
-export const criarUsuario = async (usuario: any) => {
+export const getUsuarioPorEmail = async (email: string) => {
+    return await UserModel.findOne({
+        where: { email },
+    });
+};
+
+export const criarUsuario = async (usuario: any): Promise<UsuarioDTO> => {
     if (usuario.password !== usuario.confirmPassword) {
         throw new Error("As senhas não coincidem!");
     }
@@ -22,12 +29,21 @@ export const criarUsuario = async (usuario: any) => {
     validarUsuario(usuario);
 
     const senhaHash = await hashearSenha(usuario.password);
-    return await UserModel.create({
+
+    const novoUsuario = await UserModel.create({
         firstname: usuario.firstname,
         surname: usuario.surname,
         email: usuario.email,
         password: senhaHash,
     });
+
+    // extrair os atributos do modelo UserModel
+    const usuarioData = novoUsuario.get({ plain: true });
+
+    // Retorna apenas dados públicos (sem senha)
+    const { id, firstname, surname, email } = usuarioData;
+    console.log({ id, firstname, surname, email });
+    return { id, firstname, surname, email };
 };
 
 export const atualizarUsuario = async (id: string, dadosAtualizados: any) => {

@@ -1,12 +1,16 @@
 import { Request, Response } from "express";
+import { AuthRequest } from "../middlewares/authRoutes.middleware";
 import { asyncHandler } from "../middlewares/capturaErrosParaExpressCorrigir.middleware";
+import UserModel from "../models/usuario.model";
 import {
     atualizarUsuario,
     criarUsuario,
     excluirUsuario,
     getTodosUsuarios,
+    getUsuarioPorEmail,
     getUsuarioPorId,
 } from "../services/usuario.service";
+import { UsuarioDTO } from "../types/user.types";
 import { gerarRespostaDeErro } from "../utils/gerarRespostaDeErro";
 
 const getUsuarioByID = async (req: Request, res: Response) => {
@@ -24,23 +28,39 @@ const getUsuarios = async (_req: Request, res: Response) => {
 
 const createUsuario = async (req: Request, res: Response) => {
     const { usuario } = req.body;
-    await criarUsuario(usuario);
-    return res.status(201).json({ sucesso: true, dados: "Usuário cadastrado com sucesso!" });
+    // Verifica se existe usuário com este email
+    const usuarioExistente: UserModel | null = await getUsuarioPorEmail(usuario.email);
+    if (usuarioExistente) return gerarRespostaDeErro(res, 409, "Falha ao criar usuário! E-mail já cadastrado!");
+
+    const usuarioCriado: UsuarioDTO = await criarUsuario(usuario);
+    return res.status(201).json({ sucesso: true, dados: usuarioCriado });
 };
 
-const updateUsuario = async (req: Request, res: Response) => {
+const updateUsuario = async (req: AuthRequest, res: Response) => {
     const { usuario } = req.body;
     const { id } = req.params;
-    const resultado = await atualizarUsuario(id, usuario);
-    if (!resultado[0]) return gerarRespostaDeErro(res, 404, "Usuário não encontrado para atualização");
-    return res.status(200).json({ sucesso: true, dados: "Usuário atualizado com sucesso!" });
+    const userID: number | undefined = req.user?.id;
+
+    if (Number(id) === userID) {
+        const resultado = await atualizarUsuario(id, usuario);
+        if (!resultado[0]) return gerarRespostaDeErro(res, 404, "Usuário não encontrado para atualização");
+        return res.status(200).json({ sucesso: true, dados: "Usuário atualizado com sucesso!" });
+    } else {
+        return res.status(403).json({ sucesso: false, dados: "Você não tem permissão para atualizar este usuário!" });
+    }
 };
 
-const deleteUsuario = async (req: Request, res: Response) => {
+const deleteUsuario = async (req: AuthRequest, res: Response) => {
     const { id } = req.params;
-    const resultado = await excluirUsuario(id);
-    if (!resultado) return gerarRespostaDeErro(res, 404, "Usuário não encontrado para exclusão!");
-    return res.status(200).json({ sucesso: true, dados: "Usuário deletado com sucesso!" });
+    const userID: number | undefined = req.user?.id;
+
+    if (Number(id) === userID) {
+        const resultado = await excluirUsuario(id);
+        if (!resultado) return gerarRespostaDeErro(res, 404, "Usuário não encontrado para exclusão!");
+        return res.status(200).json({ sucesso: true, dados: "Usuário deletado com sucesso!" });
+    } else {
+        return res.status(403).json({ sucesso: false, dados: "Você não tem permissão para excluir este usuário!" });
+    }
 };
 
 export const getUsuarioByIDHandle = asyncHandler(getUsuarioByID);
