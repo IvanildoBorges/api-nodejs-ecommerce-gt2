@@ -11,6 +11,7 @@ const envSchema = z.object({
     DB_USER: z.string(),
     DB_PASSWORD: z.string(),
     DB_NAME: z.string(),
+    SERVER_PORT: z.string().regex(/^\d+$/).default("3000"),
     JWT_SECRET: z.string().min(32, "JWT_SECRET deve ter pelo menos 32 caracteres"),
     JWT_EXPIRATION: z.custom<ExpiresInType>(), // Agora tem exatamente os tipos aceitos
     SALT_ROUNDS: z.string().regex(/^\d+$/, "O salto deve ser um número válido").transform(Number)

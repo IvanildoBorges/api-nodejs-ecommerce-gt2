@@ -41,6 +41,7 @@ DB_PORT=sua_porta_do_banco_de_dados     #geralmente 5432
 DB_USER=nome_do_usuario                 #geralmente postgres       
 DB_PASSWORD=sua_senha                   #geralmente postgres
 DB_NAME=ecommerce-gt2
+SERVER_PORT=3000
 JWT_SECRET=sua_chave_secreta            #32 caracters com numeros, letras e simbolos
 JWT_EXPIRATION=1d
 SALT_ROUNDS=100
@@ -63,7 +64,10 @@ api-nodejs-ecommerce-gt2/
   │ ├── middleware/       # Middlewares (autenticação e etc)
   │ ├── models/           # Definição dos modelos Sequelize
   │ ├── routes/           # Rotas da API
+  │ ├── schemas/          # Esquema para validação
   │ ├── services/         # Lógica de negócio
+  │ ├── types/            # Tipagens para modelos
+  │ ├── utils/            # Arquivos utilitários
   │ ├── app.js            # App Express
   │ └── server.js         # Inicialização do servidor
   ├── tests/              # Testes unitários
@@ -83,6 +87,7 @@ api-nodejs-ecommerce-gt2/
 | 204 NO CONTENT | Requisição processada com sucesso, sem corpo de resposta |
 | 400 BAD REQUEST | Requisição malformada ou inválida |
 | 401 UNAUTHORIZED | Falta de autenticação ou token inválido |
+| 403 FORBIDDEN | Usuário não autorizado |
 | 404 NOT FOUND | Recurso não encontrado |
 | 500 INTERNAL SERVER ERROR | Algo deu errado no servidor |
 
@@ -103,6 +108,7 @@ api-nodejs-ecommerce-gt2/
 
 ### Seção 02 – CRUD de Usuários
 
+- [x] GET `/users/` – Listar usuários  
 - [x] GET `/users/:id` – Obter usuário por ID  
 - [x] POST `/users` – Cadastrar usuário  
 - [x] PUT `/users/:id` – Atualizar usuário  
@@ -112,26 +118,28 @@ api-nodejs-ecommerce-gt2/
 
 ### Seção 03 – CRUD de Categorias
 
-- [x] GET `/categories` – Listar categorias  
-- [x] GET `/categories/:id` – Obter categoria por ID  
-- [x] POST `/categories` – Criar nova categoria  
-- [x] PUT `/categories/:id` – Atualizar categoria  
-- [x] DELETE `/categories/:id` – Remover categoria  
+- [x] GET `/category/search` – Listar categorias com ou sem filtros
+- [x] GET `/category/:id` – Obter categoria por ID  
+- [x] POST `/category` – Criar nova categoria  
+- [x] PUT `/category/:id` – Atualizar categoria  
+- [x] DELETE `/category/:id` – Remover categoria  
 
 ---
 
 ### Seção 04 – CRUD de Produtos
 
-- [x] GET `/products` – Listar produtos  
-- [x] GET `/products/:id` – Obter produto por ID  
-- [x] POST `/products` – Criar produto  
-- [x] PUT `/products/:id` – Atualizar produto  
+- [x] GET `/product/search` – Listar produtos com ou sem filtros
+- [x] GET `/product/:id` – Obter produto por ID  
+- [x] POST `/product` – Criar produto  
+- [x] PUT `/product/:id` – Atualizar produto  
+- [x] DELETE `/product/:id` – Remover produto  
 
 ---
 
 ### Seção 05 – Autenticação JWT
 
-- [x] POST `/auth/login` – Gerar token JWT  
+- [x] POST `/auth/login` – Valida credenciais
+- [x] POST `/auth/register` – Gera token e cria conta
 - [x] Middleware de verificação do token em rotas **POST**, **PUT**, **DELETE**
 
 ---

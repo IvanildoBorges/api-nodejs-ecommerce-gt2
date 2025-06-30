@@ -31,16 +31,4 @@ CategoryProductModel.init(
     }
 );
 
-// Relacionamento muitos-para-muitos entre Produtos e Categorias
-ProductModel.belongsToMany(CategorieModel, {
-    through: CategoryProductModel,
-    foreignKey: 'product_id',
-    otherKey: 'category_id',
-});
-CategorieModel.belongsToMany(ProductModel, {
-    through: CategoryProductModel,
-    foreignKey: 'category_id',
-    otherKey: 'product_id',
-});
-
 export default CategoryProductModel;

@@ -1,10 +1,20 @@
-import { DataTypes, Model } from 'sequelize';
+import { CreationOptional, DataTypes, Model } from 'sequelize';
 import connection from '../config/database';
 import ProductModel from './produto.model';
 
-class ProductImage extends Model { }
+class ProductImageModel extends Model {
+    declare id: CreationOptional<number>;
+    declare enabled: boolean;
+    declare path: string;
 
-ProductImage.init(
+    static associate() {
+        // Relacionamento 1:N
+        // Produto tem muitas imagens e imagem pertencem a um produto
+        ProductImageModel.belongsTo(ProductModel, { foreignKey: 'product_id' });
+    }
+}
+
+ProductImageModel.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -34,14 +44,4 @@ ProductImage.init(
     }
 );
 
-// Produto tem muitas imagens
-ProductModel.hasMany(ProductImage, {
-    foreignKey: 'product_id', // Chave estrangeira que será usada na tabela ProductImage
-});
-
-// E imagem pertencem a um produto
-ProductImage.belongsTo(ProductModel, {
-    foreignKey: 'product_id',  // Referência ao campo ID do ProductModel
-});
-
-export default ProductImage;
+export default ProductImageModel;

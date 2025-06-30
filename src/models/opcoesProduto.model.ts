@@ -2,7 +2,13 @@ import { DataTypes, Model } from 'sequelize';
 import connection from '../config/database';
 import ProductModel from './produto.model';
 
-class ProductOptionModel extends Model { }
+class ProductOptionModel extends Model {
+    static associate() {
+        // Relacionamento 1:N
+        // Produto tem muitas opções e opção pertencem a um produto
+        ProductOptionModel.belongsTo(ProductModel, { foreignKey: 'product_id', });
+    }
+}
 
 ProductOptionModel.init(
     {
@@ -49,9 +55,5 @@ ProductOptionModel.init(
         timestamps: false,
     }
 );
-
-// Produto tem muitas opções e opção pertencem a um produto
-ProductModel.hasMany(ProductOptionModel, { foreignKey: 'product_id', });
-ProductOptionModel.belongsTo(ProductModel, { foreignKey: 'product_id', });
 
 export default ProductOptionModel;
