@@ -6,15 +6,15 @@ import { UsuarioCompleto } from "../types/user.types";
 interface UserCreationAttributes extends Optional<UsuarioCompleto, "id"> { }
 
 class UserModel extends Model<UsuarioCompleto, UserCreationAttributes> implements UsuarioCompleto {
-    public id!: number;
-    public firstname!: string;
-    public surname!: string;
-    public email!: string;
-    public password!: string;
+    declare id: number;
+    declare firstname: string;
+    declare surname: string;
+    declare email: string;
+    declare password: string;
 
     // timestamps automáticos (se usados)
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+    declare readonly createdAt: Date;
+    declare readonly updatedAt: Date;
 }
 
 UserModel.init(

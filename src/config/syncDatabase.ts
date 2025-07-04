@@ -3,9 +3,7 @@ import connection from "./database";
 // executa todas as associações e modelos
 import CategorieModel from "../models/categoria.model";
 import '../models/categoriaProduto.model';
-import '../models/imagemProduto.model';
 import ProductImageModel from "../models/imagemProduto.model";
-import '../models/opcoesProduto.model';
 import ProductOptionModel from "../models/opcoesProduto.model";
 import ProductModel from "../models/produto.model";
 import '../models/usuario.model';
